@@ -1,10 +1,55 @@
-﻿namespace HappySadNumberTask
+
+      using System;
+
+class Program
 {
-    internal class Program
+    static int GetSumOfSquares(int num)
     {
-        static void Main(string[] args)
+        int sum = 0;
+        while (num > 0)
         {
-            /*There are said to be happy numbers and sad numbers.
+            int digit = num % 10;
+            sum = sum + (digit * digit);
+            num = num / 10;
+        }
+        return sum;
+    }
+
+    static bool happyNum(int num)
+    {
+        int tries = 0;
+        while (num != 1 && tries < 175) // avoiding endless loops :)
+        {
+            num = GetSumOfSquares(num);
+            tries = tries + 1;
+        }
+
+        if (num == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("enter a number to determine if it's a happy one :) or a sad one :(");
+        int number = Convert.ToInt32(Console.ReadLine());
+
+        if (happyNum(number))
+        {
+            Console.WriteLine(number + " is a Happy Number");
+        }
+        else
+        {
+            Console.WriteLine(number + " is a Sad Number");
+        }
+    }
+}
+                 /*There are said to be happy numbers and sad numbers.
             Happy numbers will reduce to 1 when the digits belonging to the numbers are squared and added together to produce another number and the process is repeated. e.g. when we take 19
             1 squared is 1 , 9 squared is 81. 81 +1 = 82
             8 squared is 64, 2 squared is 4.  64 + 4 = 68
